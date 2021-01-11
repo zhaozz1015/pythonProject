@@ -9,3 +9,4 @@ def say_hello(world):
 if __name__ == '__main__':
     print_hi('Eddie')
     say_hello('William')
+    say_hello('Rain')
