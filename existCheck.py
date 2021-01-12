@@ -32,9 +32,9 @@ def fileExist(path):
 
 def write_excel():
     data = {
-           'name': ['张三', '李四', '王五'],
-           'age': [11, 12, 13],
-           'sex': ['男', '女', '男']
+           'name': ['张三', '李四', '王五', '前六'],
+           'age': [11, 12, 13, 14],
+           'sex': ['男', '女', '男', '男']
     }
     df = pd.DataFrame(data)
     df.to_excel('D:\\Tools\\new.xlsx')
