@@ -6,7 +6,7 @@ sys.setdefaultencoding('utf8')
 import os
 
 def exist():
-    excel_path = "D:\\Tools\\config.xlsx"
+    excel_path = "conf\\config.xlsx"
     excel = pd.read_excel(excel_path, sheet_name='existcheck')
 
     for i in excel.index.values :
@@ -17,7 +17,7 @@ def exist():
         else:
             print('else')
 
-        write_excel()
+        #write_excel()
 
 def dirExist(path):
     if (not os.path.exists(path) or not os.path.isdir(path)) :
@@ -30,11 +30,11 @@ def fileExist(path):
     if (not os.path.exists(path)) :
         print('file path:' + path)
 
-def write_excel():
+def write_excel(message):
     data = {
            'name': ['张三', '李四', '王五', '前七'],
            'age': [11, 12, 13, 14],
            'sex': ['男', '女', '男', '男']
     }
     df = pd.DataFrame(data)
-    df.to_excel('D:\\Tools\\new.xlsx')
+    #df.to_excel('D:\\Tools\\new.xlsx')
