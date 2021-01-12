@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
+import os
 
 def exist():
     excel_path = "D:\\Tools\\config.xlsx"
@@ -16,8 +17,24 @@ def exist():
         else:
             print('else')
 
+        write_excel()
+
 def dirExist(path):
-    print('dirExist')
+    if (not os.path.exists(path) or not os.path.isdir(path)) :
+        print('dir path:' + path)
+    else:
+        print('dir count:' + str(len(os.listdir(path))))
+
 
 def fileExist(path):
-    print('fileExist')
+    if (not os.path.exists(path)) :
+        print('file path:' + path)
+
+def write_excel():
+    data = {
+           'name': ['张三', '李四', '王五'],
+           'age': [11, 12, 13],
+           'sex': ['男', '女', '男']
+    }
+    df = pd.DataFrame(data)
+    df.to_excel('D:\\Tools\\new.xlsx')
