@@ -25,7 +25,6 @@ def dirExist(path):
         if (len(os.listdir(path)) == 0):
             log_util.log_result('异常', '文件夹为空：' + path)
 
-
 def fileExist(path):
     if (not os.path.exists(path)) :
         log_util.log_result('异常', '文件不存在：' + path)
