@@ -4,6 +4,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 import os
+import log_util
 
 def exist():
     excel_path = "conf\\config.xlsx"
@@ -15,26 +16,16 @@ def exist():
         elif (excel.ix[i, 0] == '文件夹') :
             dirExist(excel.ix[i, 1])
         else:
-            print('else')
-
-        #write_excel()
+            log_util.log_result('错误', '不支持的检查类型（是否存在）：' + excel.ix[i, 0])
 
 def dirExist(path):
     if (not os.path.exists(path) or not os.path.isdir(path)) :
-        print('dir path:' + path)
+        log_util.log_result('异常', '文件夹不存在：' + path)
     else:
-        print('dir count:' + str(len(os.listdir(path))))
+        if (len(os.listdir(path)) == 0):
+            log_util.log_result('异常', '文件夹为空：' + path)
 
 
 def fileExist(path):
     if (not os.path.exists(path)) :
-        print('file path:' + path)
-
-def write_excel(message):
-    data = {
-           'name': ['张三', '李四', '王五', '前七'],
-           'age': [11, 12, 13, 14],
-           'sex': ['男', '女', '男', '男']
-    }
-    df = pd.DataFrame(data)
-    #df.to_excel('D:\\Tools\\new.xlsx')
+        log_util.log_result('异常', '文件不存在：' + path)
