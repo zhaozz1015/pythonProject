@@ -6,6 +6,11 @@ def get_position(mark):
         log_util.log_result('错误', '非法的单元格参数' + mark)
         raise Exception('非法的单元格参数' + mark)
 
+    parts = split_alpha_digit(mark)
+
+    return [str(str_to_num(parts[0])), parts[1]]
+
+def split_alpha_digit(mark):
     index = 1
     digit = mark[index:len(mark)]
     while (not digit.isdigit()):
@@ -14,7 +19,7 @@ def get_position(mark):
 
     alpha = mark[0:index]
 
-    return [str(str_to_num(alpha)), digit]
+    return [alpha, digit]
 
 def str_to_num(str):
     strs = {

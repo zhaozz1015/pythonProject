@@ -23,11 +23,11 @@ def conditional_not_null_check(template_cell_param, cell_value, check_cell_param
     check_sheet_index = check_cell_param[check_cell_param.find('|') + 1 : check_cell_param.find('!')]
     check_square = check_cell_param[check_cell_param.find('!') + 1 : len(check_cell_param)]
 
-    print ('template_file_url:' + template_file_url)
-    print ('template_sheet_index:' + template_sheet_index)
-    print ('template_square:' + template_square)
-    print ('check_sheet_index:' + check_sheet_index)
-    print ('check_square:' + check_square)
+    # print ('template_file_url:' + template_file_url)
+    # print ('template_sheet_index:' + template_sheet_index)
+    # print ('template_square:' + template_square)
+    # print ('check_sheet_index:' + check_sheet_index)
+    # print ('check_square:' + check_square)
 
     if (os.path.isdir(template_file_url)):
         files = os.listdir(template_file_url)
@@ -47,12 +47,17 @@ def not_null_check(template_file_url, template_sheet_index, template_square, cel
 
     squares = check_square.split(',')
 
+    total_count = 0
+    error_count = 0
     for i in template_excel.index.values:
+        total_count = total_count + 1
         if (template_excel.ix[i, int(position_star[0])] == cell_value):
             check_excel = pd.read_excel(template_file_url, sheet_name=int(check_sheet_index))
             for square in squares:
                 check_star = excel_util.get_position(square[0: square.find(':')])
-                print (check_excel.ix[i, int(check_star[0])])
-                if (check_excel.ix[i, int(check_star[0])] == '' or check_excel.ix[i, int(check_star[0])] == 'nan'):
-                    print (check_excel.ix[i, int(check_star[0])])
+                check_value = str(check_excel.ix[i, int(check_star[0])])
+                if (check_value == '' or check_value == 'nan'):
+                    error_count = error_count + 1
+                    log_util.log_result('异常', '关联非空检查异常【' + excel_util.split_alpha_digit(square[0: square.find(':')])[0] + str(i+2) + '】。' + template_file_url)
 
+    log_util.log_report('关联非空检查，共计' + str(total_count) + '项，其中异常' + str(error_count) + '项。' + template_file_url)
